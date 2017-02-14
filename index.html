@@ -1,86 +1,70 @@
 <!DOCTYPE html>
-<!--
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
--->
 <html>
 <head>
-
   <meta charset="utf-8">
-  <meta name="description" content="WebRTC code samples">
-  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-  <meta itemprop="description" content="Client-side WebRTC code samples">
-  <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
-  <meta itemprop="name" content="WebRTC code samples">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta id="theme-color" name="theme-color" content="#ffffff">
+	<title>Oscillator</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="icon" type="image/png" sizes="174x174" href="./Tone.js-master/examples/style/favicon.png">
 
-  <base target="_blank">
+	<script type="text/javascript" src="./Tone.js-master/build/Tone.js"></script>
+	<script type="text/javascript" src="./Tone.js-master/examples/scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="./Tone.js-master/examples/scripts/draggabilly.js"></script>
+	<script type="text/javascript" src="./Tone.js-master/examples/scripts/StartAudioContext.js"></script>
+	<script type="text/javascript" src="./Tone.js-master/examples/scripts/Interface.js"></script>
+	<script type="text/javascript" src="https://tonejs.github.io/Logo/build/Logo.js"></script>
 
-  <title>Select audio and video sources</title>
+	<link rel="stylesheet" type="text/css" href="./Tone.js-master/examples/style/examples.css">
 
-  <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
-  <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="../../../css/main.css">
-  
-  <script type="text/javascript" src="color-thief.min.js"></script>
-  <script type="text/javascript" src="ntc.js"></script>
-  <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
-
-  <style>
-    div.select {
-      display: inline-block;
-      margin: 0 0 1em 0;
-    }
-    p.small {
-      font-size: 0.7em;
-    }
-    label {
-      width: 12em;
-      display: inline-block;
-    }
-  </style>
+	<script type="text/javascript">
+		// jshint ignore: start
+	</script>
 
 </head>
-
 <body>
-  <div id="container">
+	<div id="Content">
+		<div id="Title">Oscillator</div>
+		<div id="Explanation">
+			Click and drag the dot to hear the oscillator. The x-axis controls the frequency of the oscillator and the y-axis controls the volume.
+			<br><br>
+			<a href="https://tonejs.github.io/docs/#Oscillator">Tone.Oscillator</a> docs.
+		</div>
+		<div id="DragContainer"></div>
+	</div>
+	<script id="ToneCode" type="text/javascript">
+		var osc = new Tone.Oscillator({
+			"frequency" : 440,
+			"volume" : -10
+		}).toMaster();
+	</script>
+	<script id="GUI" type="text/javascript">
+		$(function(){
 
-    <div class="highlight">
-      <p>New codelab: <a href="https://codelabs.developers.google.com/codelabs/webrtc-web">Realtime communication with WebRTC</a></p>
-    </div>
+			Interface.Dragger({
+				tone : osc,
+				x : {
+					param : "frequency",
+					min : 60,
+					max : 2000,
+					exp : 2
+				},
+				y : {
+					param : "volume",
+					min : -40,
+					max : 0
+				},
+				start : function(){
+					osc.start();
+					Tone.Master.volume.rampTo(0, 0.05);
+				},
+				end : function(){
+					//so it doesn't click
+					Tone.Master.volume.rampTo(-Infinity, 0.05);
+				}
+			});
+		})
 
-    <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a><span>Select sources &amp; outputs</span></h1>
-
-    <p>Get available audio, video sources and audio output devices from <code>mediaDevices.enumerateDevices()</code> then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p>
-
-    <div class="select">
-      <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
-    </div>
-
-    <div class="select">
-      <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
-    </div>
-
-    <div class="select">
-      <label for="videoSource">Video source: </label><select id="videoSource"></select>
-    </div>
-
-    <video id="video" autoplay></video>
-
-    <p class="small"><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.</p>
-
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/devices/input-output" title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
-  </div>
-
-  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  <script src="../../../js/common.js"></script>
-  <script src="js/main.js"></script>
-
-  <script src="../../../js/lib/ga.js"></script>
-  
+		
+	</script>
 </body>
 </html>
