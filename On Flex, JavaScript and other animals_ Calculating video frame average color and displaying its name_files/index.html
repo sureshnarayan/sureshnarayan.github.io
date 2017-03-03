@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://amirush.com/blog/video_color/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<script type="text/javascript" src="./color-thief.min.js.download"></script>
+	<script type="text/javascript" src="./ntc.js.download"></script>
+	<script type="text/javascript" src="./jquery-1.11.3.min.js.download"></script>
+<style>
+    .output{
+        width: 200px;
+        height: 60px;
+        font-family: Arial;
+        font-size: 14px;
+        border: 1px solid black;
+        border-radius: 10px;
+        text-align: center;
+        padding-top:10px;
+        margin-left: 200px;
+        color: white;
+        text-shadow: 2px 2px 4px #000000;
+    }
+</style></head>
+
+
+
+<body>
+
+<video id="vid" src="simpsons.mp4" width="640" controls="" height="480"></video><br>
+<div class="output" style="background-color: rgb(190, 110, 167);"><span style="font-size: 18px">Viola</span><br>(#be6ea7)</div>
+
+<script language="javascript">
+
+    var colorThief = new ColorThief();
+    var video = document.getElementById("vid");
+    var intervalID;
+
+    video.addEventListener("play", function() {
+        video.width = video.videoWidth;
+        video.height = video.videoHeight;
+        intervalID = setInterval(function(){
+            var frameColor = colorThief.getColor(video);
+            var hex = rgbToHex(frameColor[0],frameColor[1],frameColor[2]);
+            $(".output").html("<span style='font-size: 18px'>"+ntc.name(hex)[1]+"</span><br>("+hex+")").css("background-color","rgb("+frameColor+")");
+        },500);
+    });
+
+    video.addEventListener("pause", function() {
+        clearInterval(intervalID);
+    });
+    
+    function rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+
+</script>
+
+
+</body></html>
