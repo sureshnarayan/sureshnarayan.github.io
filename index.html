@@ -7,11 +7,11 @@
 <script>
 
 function deviceOrientationListeners(event) {
-     document.write(event.alpha);
-     document.write("\n");
-     document.write(event.beta);
-     document.write("\n");
-     document.write(event.gamma);
+     document.writeln(event.alpha);
+
+     document.writeln(event.beta);
+
+     document.writeln(event.gamma);
 }
 
 if (window.DeviceOrientationEvent) {
