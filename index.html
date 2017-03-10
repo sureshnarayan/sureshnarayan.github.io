@@ -5,9 +5,10 @@
 </canvas-->
 <script>
 
+<p id="demo"></p>
 
 function deviceOrientationListeners(event) {
-     document.write(event.alpha);
+     document.getElementById("demo").innerHTML = event.alpha;
 }
 
 
