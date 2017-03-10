@@ -1,70 +1,42 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-	<title>Oscillator</title>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="icon" type="image/png" sizes="174x174" href="./Tone.js-master/examples/style/favicon.png">
+<!-- saved from url=(0045)http://mekya.com/labs/device_orientation.html -->
+<html class="gr__mekya_com"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body data-gr-c-s-loaded="true">
+<canvas id="myCanvas" width="360" height="450" style="border:1px solid #d3d3d3;">
+</canvas>
+<script>
 
-	<script type="text/javascript" src="./Tone.js-master/build/Tone.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/jquery.min.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/draggabilly.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/StartAudioContext.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/Interface.js"></script>
-	<script type="text/javascript" src="https://tonejs.github.io/Logo/build/Logo.js"></script>
+function deviceOrientationListener(event) {
+     var c=document.getElementById("myCanvas");
+     var ctx=c.getContext("2d");
+     ctx.clearRect(0,0, c.width, c.height);
+     ctx.fillStyle="#FF7777";
+     ctx.font="14px Verdana";
+     ctx.fillText("Alpha:" + Math.round(event.alpha) ,10,20);
+     ctx.beginPath();
+     ctx.moveTo(180, 75);
+     ctx.lineTo(210, 75);
+     ctx.arc(180,75,60,0, event.alpha*Math.PI/180);
+     ctx.fill();
 
-	<link rel="stylesheet" type="text/css" href="./Tone.js-master/examples/style/examples.css">
+     ctx.fillStyle="#FF6600";
+     ctx.fillText("Beta:" + Math.round(event.beta),10,140);
+     ctx.beginPath();
+     ctx.fillRect(180, 150, event.beta, 90);
 
-	<script type="text/javascript">
-		// jshint ignore: start
-	</script>
+     ctx.fillStyle="#FF0000";
+     ctx.fillText("Gamma:" + Math.round(event.gamma),10,270);
+     ctx.beginPath();
+     ctx.fillRect(90, 340, 180, event.gamma);
+}
 
-</head>
-<body>
-	<div id="Content">
-		<div id="Title">Oscillator</div>
-		<div id="Explanation">
-			Click and drag the dot to hear the oscillator. The x-axis controls the frequency of the oscillator and the y-axis controls the volume.
-			<br><br>
-			<a href="https://tonejs.github.io/docs/#Oscillator">Tone.Oscillator</a> docs.
-		</div>
-		<div id="DragContainer"></div>
-	</div>
-	<script id="ToneCode" type="text/javascript">
-		var osc = new Tone.Oscillator({
-			"frequency" : 440,
-			"volume" : -10
-		}).toMaster();
-	</script>
-	<script id="GUI" type="text/javascript">
-		$(function(){
+if (window.DeviceOrientationEvent) {
+   window.addEventListener("deviceorientation", deviceOrientationListener);
+}
+else {
+    alert("Sorry, your browser doesn't support Device Orientation");
+}
 
-			Interface.Dragger({
-				tone : osc,
-				x : {
-					param : "frequency",
-					min : 6,
-					max : 20000,
-					exp : 2
-				},
-				y : {
-					param : "volume",
-					min : -40,
-					max : 0
-				},
-				start : function(){
-					osc.start();
-					Tone.Master.volume.rampTo(0, 0.05);
-				},
-				end : function(){
-					//so it doesn't click
-					Tone.Master.volume.rampTo(-Infinity, 0.05);
-				}
-			});
-		})
 
-		
-	</script>
-</body>
-</html>
+</script>
+
+</body></html>
