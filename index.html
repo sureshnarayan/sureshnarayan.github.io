@@ -1,70 +1,94 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-	<title>Oscillator</title>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="icon" type="image/png" sizes="174x174" href="./Tone.js-master/examples/style/favicon.png">
-
-	<script type="text/javascript" src="./Tone.js-master/build/Tone.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/jquery.min.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/draggabilly.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/StartAudioContext.js"></script>
-	<script type="text/javascript" src="./Tone.js-master/examples/scripts/Interface.js"></script>
-	<script type="text/javascript" src="https://tonejs.github.io/Logo/build/Logo.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="./Tone.js-master/examples/style/examples.css">
-
-	<script type="text/javascript">
-		// jshint ignore: start
-	</script>
-
-</head>
+</html>
+    <head>
+        <title>Data</title>
+        <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
 <body>
-	<div id="Content">
-		<div id="Title">Oscillator</div>
-		<div id="Explanation">
-			Click and drag the dot to hear the oscillator. The x-axis controls the frequency of the oscillator and the y-axis controls the volume.
-			<br><br>
-			<a href="https://tonejs.github.io/docs/#Oscillator">Tone.Oscillator</a> docs.
-		</div>
-		<div id="DragContainer"></div>
-	</div>
-	<script id="ToneCode" type="text/javascript">
-		var osc = new Tone.Oscillator({
-			"frequency" : 440,
-			"volume" : -10
-		}).toMaster();
-	</script>
-	<script id="GUI" type="text/javascript">
-		$(function(){
+<div id="plot"></div>
+<script>
+  /* JAVASCRIPT CODE GOES HERE */
+Plotly.d3.csv("https://raw.githubusercontent.com/SyedYousuff145/bike_sensor/master/bike_data_logs/Sat_Sep_23_13%3A25%3A49_2017_M", function(err, rows){
 
-			Interface.Dragger({
-				tone : osc,
-				x : {
-					param : "frequency",
-					min : 6,
-					max : 20000,
-					exp : 2
-				},
-				y : {
-					param : "volume",
-					min : -40,
-					max : 0
-				},
-				start : function(){
-					osc.start();
-					Tone.Master.volume.rampTo(0, 0.05);
-				},
-				end : function(){
-					//so it doesn't click
-					Tone.Master.volume.rampTo(-Infinity, 0.05);
-				}
-			});
-		})
+function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+}
 
 
-	</script>
+var trace1 = {
+  type: "scatter",
+  mode: "lines+markers",
+  name: 'Activity Level',
+  fill: 'tozeroy',
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Ax'),
+  line: {shape: 'spline', color: '#17BECF'}
+};
+
+var trace2 = {
+  type: "scatter",
+  mode: "lines+markers",
+  name: 'Activity Level',
+  fill: 'tozeroy',
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Ay'),
+  line: {shape: 'spline', color: '#10BECF'}
+};
+
+var trace3 = {
+  type: "scatter",
+  mode: "lines+markers",
+  name: 'Activity Level',
+  fill: 'tozeroy',
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Az'),
+  line: {shape: 'spline', color: '#7BECF'}
+};
+
+
+
+var data = [trace1, trace2, trace3];
+
+var layout = {
+  title: 'Time Series with Rangeslider',
+  autosize: 'true',
+  xaxis: {
+    autorange: true,
+    //range: ['2015-02-17', '2017-02-16'],
+    rangeselector: {buttons: [
+        {
+          count: 1,
+          label: '1d',
+          step: 'day',
+          stepmode: 'backward'
+        },
+        {
+          count: 7,
+          label: '1w',
+          step: 'day',
+          stepmode: 'backward'
+        },
+        {
+          count: 1,
+          label: '1m',
+          step: 'month',
+          stepmode: 'backward'
+        },
+        {step: 'all'}
+      ]},
+    rangeslider: {},
+    type: 'date'
+  },
+  yaxis: {
+    autorange: true,
+    //range: [86.8700008333, 138.870004167],
+    type: 'linear'
+  }
+};
+
+Plotly.newPlot('plot', data, layout);
+})
+</script>
+</div>
 </body>
 </html>
