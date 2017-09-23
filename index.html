@@ -1,94 +1,25 @@
 <!DOCTYPE html>
-</html>
-    <head>
-        <title>Data</title>
-        <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    </head>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Bike Plot</title>
+</head>
+
 <body>
-<div id="plot"></div>
-<script>
+  <head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<!-- Plotly chart will be drawn inside this DIV -->
+<div id="myDiv"></div>
+  <script>
   /* JAVASCRIPT CODE GOES HERE */
-Plotly.d3.csv("https://raw.githubusercontent.com/SyedYousuff145/bike_sensor/master/bike_data_logs/Sat_Sep_23_13%3A25%3A49_2017_M", function(err, rows){
+  </script>
+</body>
+</html>
+  
+    <script  src="js/index.js"></script>
 
-function unpack(rows, key) {
-  return rows.map(function(row) { return row[key]; });
-}
-
-
-var trace1 = {
-  type: "scatter",
-  mode: "lines+markers",
-  name: 'Activity Level',
-  fill: 'tozeroy',
-  x: unpack(rows, 'Time'),
-  y: unpack(rows, 'Ax'),
-  line: {shape: 'spline', color: '#17BECF'}
-};
-
-var trace2 = {
-  type: "scatter",
-  mode: "lines+markers",
-  name: 'Activity Level',
-  fill: 'tozeroy',
-  x: unpack(rows, 'Time'),
-  y: unpack(rows, 'Ay'),
-  line: {shape: 'spline', color: '#10BECF'}
-};
-
-var trace3 = {
-  type: "scatter",
-  mode: "lines+markers",
-  name: 'Activity Level',
-  fill: 'tozeroy',
-  x: unpack(rows, 'Time'),
-  y: unpack(rows, 'Az'),
-  line: {shape: 'spline', color: '#7BECF'}
-};
-
-
-
-var data = [trace1, trace2, trace3];
-
-var layout = {
-  title: 'Time Series with Rangeslider',
-  autosize: 'true',
-  xaxis: {
-    autorange: true,
-    //range: ['2015-02-17', '2017-02-16'],
-    rangeselector: {buttons: [
-        {
-          count: 1,
-          label: '1d',
-          step: 'day',
-          stepmode: 'backward'
-        },
-        {
-          count: 7,
-          label: '1w',
-          step: 'day',
-          stepmode: 'backward'
-        },
-        {
-          count: 1,
-          label: '1m',
-          step: 'month',
-          stepmode: 'backward'
-        },
-        {step: 'all'}
-      ]},
-    rangeslider: {},
-    type: 'date'
-  },
-  yaxis: {
-    autorange: true,
-    //range: [86.8700008333, 138.870004167],
-    type: 'linear'
-  }
-};
-
-Plotly.newPlot('plot', data, layout);
-})
-</script>
-</div>
 </body>
 </html>

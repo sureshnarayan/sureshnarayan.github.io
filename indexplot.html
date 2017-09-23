@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+</html>
+    <head>
+        <title>Data</title>
+        <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+<body>
+<div id="plot"></div>
+<script>
+  /* JAVASCRIPT CODE GOES HERE */
+Plotly.d3.csv("https://raw.githubusercontent.com/SyedYousuff145/bike_sensor/master/bike_data_logs/Sat_Sep_23_21%3A09%3A59_2017_M", function(err, rows){
+
+function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+}
+
+
+var trace1 = {
+  type: "scatter",
+  mode: "lines",
+  name: 'Ax',
+  //fill: 'tozeroy',
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Ax'),
+  line: {color: '#17BECF'}
+};
+
+var trace2 = {
+  type: "scatter",
+  mode: "lines",
+  name: 'Ay',
+  // fill: 'tozeroy',
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Ay'),
+  line: {color: '#1BECF'}
+};
+
+var trace3 = {
+  type: "scatter",
+  mode: "lines",
+  name: 'Az',
+  //fill: 'tozeroy',
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Az'),
+  line: {color: '#7BECF'}
+};
+
+
+
+var data = [trace1, trace2, trace3];
+
+var layout = {
+  title: 'Time Series with Rangeslider',
+  autosize: 'true',
+  xaxis: {
+    autorange: true,
+    rangeslider: {},
+    type: 'date'
+  },
+  yaxis: {
+    autorange: true,
+    type: 'linear'
+  }
+};
+
+Plotly.newPlot('plot', data, layout);
+})
+</script>
+</div>
+</body>
+</html>
