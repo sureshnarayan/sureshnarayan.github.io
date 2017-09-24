@@ -1,4 +1,4 @@
-Plotly.d3.csv("https://raw.githubusercontent.com/SyedYousuff145/bike_sensor/master/bike_data_logs/Sat_Sep_23_21%3A09%3A59_2017_M", function(err, rows){
+Plotly.d3.csv("https://raw.githubusercontent.com/SyedYousuff145/bike_sensor/master/bike_data_logs/Sun_Sep_24_14%3A27%3A55_2017_M", function(err, rows){
 
   function unpack(rows, key) {
   return rows.map(function(row) { return row[key]; });
