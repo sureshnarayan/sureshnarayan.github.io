@@ -59,3 +59,5 @@ var layout = {
 
 Plotly.newPlot('myDiv', data, layout);
 })
+})
+})
