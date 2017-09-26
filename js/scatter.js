@@ -49,7 +49,7 @@ var trace3 = {
 
 var data = [trace1,trace2,trace3];
     
-var layout: {
+var layout = {
     autosize: true, 
     yaxis: { title: "Ay"}, 
     xaxis: { title: "Ax"}, 
