@@ -55,7 +55,7 @@ var layout = {
     xaxis: { title: "Ax"}, 
     zaxis: { title: "Az"}, 
     hovermode: "closest"
-    },
+    };
 
 Plotly.newPlot('myDiv', data, layout);
 })
