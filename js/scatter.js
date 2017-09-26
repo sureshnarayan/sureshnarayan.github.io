@@ -50,39 +50,11 @@ var trace3 = {
 var data = [trace1,trace2,trace3];
     
 var layout: {
-        "autosize": true, 
-        "yaxis": {
-            "title": "Ay"
-        }, 
-        "scene": {
-            "aspectratio": {
-                "y": 1, 
-                "x": 1, 
-                "z": 1
-            }, 
-            "camera": {
-                "eye": {
-                    "y": 0.9369593969783191, 
-                    "x": 0.9369593969783193, 
-                    "z": 0.9369593969783191
-                }, 
-                "up": {
-                    "y": 0, 
-                    "x": 0, 
-                    "z": 1
-                }, 
-                "center": {
-                    "y": 0, 
-                    "x": 0, 
-                    "z": 0
-                }
-            }
-        }, 
-        "breakpoints": [], 
-        "xaxis": {
-            "title": "Ax"
-        }, 
-        "hovermode": "closest"
+    autosize: true, 
+    yaxis: { title: "Ay"}, 
+    xaxis: { title: "Ax"}, 
+    zaxis: { title: "Az"}, 
+    hovermode: "closest"
     },
 
 Plotly.newPlot('myDiv', data, layout);
