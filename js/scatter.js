@@ -33,7 +33,7 @@ var trace2 = {
   z: unpack2(rows, 'Az'), 
   mode: 'markers',
   type: 'scatter',
-  name: 'Bullet Avg',
+  name: 'Dominar Avg',
   marker: { size: 1 }
 };
   
@@ -43,28 +43,9 @@ var trace3 = {
   z: unpack3(rows, 'Az'), 
   mode: 'markers',
   type: 'scatter',
-  name: 'Bullet Avg',
+  name: 'Pep Avg',
   marker: { size: 1 }
 };
-
-
-var trace4 = {
-  type: "scatter",
-  mode: "lines",
-  name: 'Ay',
-  x: unpack(rows, 'Time'),
-  y: unpack(rows, 'Ay'),
-  line: {color: '#7F7F7F'}
-}
-
-var trace5 = {
-  type: "scatter",
-  mode: "lines",
-  name: 'Az',
-  x: unpack(rows, 'Time'),
-  y: unpack(rows, 'Az'),
-  line: {color: '#107F7F'}
-}
 
 var data = [trace1,trace2,trace3];
     
